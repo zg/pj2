@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Compiling C/CUDA source files..."
+(cd $PJ2_HOME/lib; bash -v ccompile)
+(cd $PJ2_HOME/lib/edu/rit/gpu/example; bash -v ./ccompile)
+(cd $PJ2_HOME/lib/edu/rit/gpu/test; bash -v ./ccompile)

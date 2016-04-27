@@ -1,0 +1,28 @@
+#!/bin/bash
+SOURCE_HOME=/home/ark/Projects/pj2
+JDK_HOME=/opt/jdk1.7
+SOURCEPATH=$SOURCE_HOME/lib
+BOOTCLASSPATH=$JDK_HOME/jre/lib/rt.jar
+DOCDIR=$SOURCE_HOME/doc
+LINKURL1=http://docs.oracle.com/javase/7/docs/api/
+OVERVIEWFILE=$SOURCEPATH/overview.html
+if [[ -d $DOCDIR ]]
+then
+    rm -r $DOCDIR/*
+else
+    echo "Documentation directory $DOCDIR does not exist."
+    exit 1
+fi
+$JDK_HOME/bin/javadoc \
+-sourcepath $SOURCEPATH \
+-bootclasspath $BOOTCLASSPATH \
+-d $DOCDIR \
+-use \
+-splitindex \
+-doctitle "THE PARALLEL JAVA 2 LIBRARY" \
+-link $LINKURL1 \
+-windowtitle "Parallel Java 2 Library Documentation" \
+-bottom "<FONT SIZE=\"-2\">Copyright &copy; 2013&ndash;2016 by Alan Kaminsky. All rights reserved. Send comments to ark</FONT><FONT SIZE=\"1\" COLOR=\"#FFFFFF\">&shy;</FONT><FONT SIZE=\"-2\">&#64;</FONT><FONT SIZE=\"1\" COLOR=\"#FFFFFF\">&shy;</FONT><FONT SIZE=\"-2\">cs.rit.edu.</FONT>" \
+-overview $OVERVIEWFILE \
+@packages.txt
+

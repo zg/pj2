@@ -1,0 +1,17 @@
+#!/bin/bash
+
+nvcc -cubin -arch compute_20 -code sm_20 --ptxas-options="-v" -o OuterProductGpu.cubin OuterProductGpu.cu
+
+nvcc -cubin -arch compute_20 -code sm_20 --ptxas-options="-v" -o PiGpu.cubin PiGpu.cu
+
+nvcc -cubin -arch compute_20 -code sm_20 --ptxas-options="-v" -o Powers.cubin Powers.cu
+
+nvcc -cubin -arch compute_20 -code sm_20 --ptxas-options="-v" -o ZombieGpu.cubin ZombieGpu.cu
+
+nvcc -cubin -arch compute_20 -code sm_20 --ptxas-options="-v" -o ZombieGpu2.cubin ZombieGpu2.cu
+
+nvcc -cubin -arch compute_20 -code sm_20 --ptxas-options="-v" -o WalkSackGpu.cubin WalkSackGpu.cu
+
+nvcc -cubin -arch compute_20 -code sm_20 --ptxas-options="-v" -o KnapsackExhGpu.cubin KnapsackExhGpu.cu
+
+nvcc -cubin -arch compute_20 -code sm_20 --ptxas-options="-v" -o KnapsackBnbGpu.cubin KnapsackBnbGpu.cu

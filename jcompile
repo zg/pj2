@@ -1,0 +1,45 @@
+#!/bin/bash
+export PJ2_HOME=/home/ark/Projects/pj2
+SOURCE_HOME=$PJ2_HOME/lib
+JDK_HOME=/opt/jdk1.7
+
+echo "Changing directories..."
+cd $SOURCE_HOME
+
+echo "Removing Java class files..."
+find . -name '*.class' -exec rm '{}' ';'
+
+echo "Compiling Java source files..."
+$JDK_HOME/bin/javac \
+-classpath $SOURCE_HOME \
+*.java \
+edu/rit/crypto/*.java \
+edu/rit/draw/*.java \
+edu/rit/draw/item/*.java \
+edu/rit/draw/item/test/*.java \
+edu/rit/gpu/*.java \
+edu/rit/gpu/example/*.java \
+edu/rit/gpu/test/*.java \
+edu/rit/http/*.java \
+edu/rit/image/*.java \
+edu/rit/image/png/*.java \
+edu/rit/io/*.java \
+edu/rit/numeric/*.java \
+edu/rit/numeric/plot/*.java \
+edu/rit/numeric/plot/impl/*.java \
+edu/rit/pj2/*.java \
+edu/rit/pj2/example/*.java \
+edu/rit/pj2/test/*.java \
+edu/rit/pj2/tracker/*.java \
+edu/rit/pj2/tuple/*.java \
+edu/rit/pj2/vbl/*.java \
+edu/rit/pjmr/*.java \
+edu/rit/pjmr/example/*.java \
+edu/rit/pjmr/util/*.java \
+edu/rit/sim/*.java \
+edu/rit/swing/*.java \
+edu/rit/util/*.java \
+edu/rit/util/test/*.java \
+
+
+cd $PJ2_HOME

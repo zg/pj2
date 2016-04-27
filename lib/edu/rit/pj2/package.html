@@ -1,0 +1,133 @@
+<HTML>
+<HEAD>
+<TITLE>Package edu.rit.pj2</TITLE>
+</HEAD>
+<BODY>
+
+Package edu.rit.pj2 contains Parallel Java 2 (PJ2),
+an API and middleware for parallel programming in 100% Java
+on multicore parallel computers,
+cluster parallel computers,
+supercomputing grids,
+and cloud computing services.
+
+<P>
+PJ2 is designed for writing two kinds of parallel programs:
+tightly coupled single-node
+and loosely coupled multi-node.
+
+<P>
+<H3>Tightly Coupled Single-Node Parallel Programs</H3>
+
+<P>
+A tightly coupled single-node parallel program
+is intended to run on one multicore node.
+The program consists of multiple threads
+that run in parallel on separate cores.
+The threads communicate and coordinate
+by reading and writing variables in shared memory.
+
+<P>
+This kind of PJ2 program is expressed
+as a subclass of class <A HREF="Task.html">Task</A>.
+The program is executed
+by running the <A HREF="../../../pj2.html"><TT>pj2</TT></A>
+launcher program as follows:
+<P>
+<TT>$ java pj2 MainTask <I>arg</I> ...</TT>
+<P>
+The above command creates an instance of class MainTask,
+a subclass of class <A HREF="Task.html">Task</A>.
+Replace <TT>MainTask</TT> with the fully-qualified class name
+of the desired task subclass.
+The launcher creates an instance of the task subclass,
+then calls that task's
+<A HREF="Task.html#main(java.lang.String[])"><TT>main()</TT></A>
+method,
+passing in an array of the command line argument strings
+(zero or more).
+The task executes in the launcher's process.
+The
+<A HREF="Task.html#main(java.lang.String[])"><TT>main()</TT></A>
+method carries out the computation.
+When the
+<A HREF="Task.html#main(java.lang.String[])"><TT>main()</TT></A>
+method returns, the launcher terminates.
+
+<P>
+The computation can contain sequential statements
+executed by a single thread,
+interspersed with parallel statements
+executed by multiple threads.
+Running on a multicore computer,
+the Java Virtual Machine (JVM)
+schedules each thread on a separate core,
+thus executing the program in parallel.
+
+<P>
+<H3>Loosely Coupled Multi-Node Parallel Programs</H3>
+
+<P>
+A loosely coupled multi-node parallel program
+is intended to run on multiple nodes.
+The nodes may be located in a cluster parallel computer,
+in a grid,
+or in a cloud.
+The program consists of multiple <A HREF="Task.html">Task</A>s
+that run in parallel on separate nodes.
+The tasks coordinate and communicate with each other
+by reading and writing <A HREF="Tuple.html">Tuple</A>s
+in <I>tuple space.</I>
+The tasks are intended to be <I>coarse-grained,</I>
+meaning each task runs for minutes or hours, not milliseconds.
+The tasks are intended to communicate
+<I>small to medium amounts of data</I> via tuple space,
+not enormous quantities of data.
+
+<P>
+This kind of PJ2 program is expressed
+as a subclass of class <A HREF="Job.html">Job</A>.
+The program is executed
+by running the <A HREF="../../../pj2.html"><TT>pj2</TT></A>
+launcher program as follows:
+<P>
+<TT>$ java pj2 jar=<I>file</I> MainJob <I>arg</I> ...</TT>
+<P>
+The above command creates an instance of class MainJob,
+a subclass of class <A HREF="Job.html">Job</A>.
+Replace <TT>MainJob</TT> with the fully-qualified class name
+of the desired job subclass.
+The launcher creates an instance of the job subclass,
+then calls that job's
+<A HREF="Job#main(java.lang.String[])"<TT>main()</TT></A>
+method,
+passing in an array
+of the command line argument strings (zero or more).
+The
+<A HREF="Job#main(java.lang.String[])"<TT>main()</TT></A>
+method defines <A HREF="Rule.html">Rule</A>s
+that specify which <A HREF="Task.html">Task</A>s
+are to be executed as part of the job.
+The launcher creates and executes those tasks,
+which carry out the job's computation.
+The tasks may execute in the launcher's process
+or on computational nodes that are part of
+a cluster, grid, or cloud.
+When all the tasks have finished executing,
+the launcher terminates.
+
+<P>
+Running on a cluster, grid, or cloud,
+the program executes each task on a separate node,
+thus executing the program in parallel.
+Each task receives input tuples
+that are taken out of tuple space,
+performs computations,
+and generates output tuples
+that are written into tuple space.
+Each task executes independently of other tasks.
+All inter-task coordination and communication
+goes through tuple space.
+
+</BODY>
+</HTML>

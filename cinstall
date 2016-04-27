@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [[ "$1" == "" ]]
+	then
+	echo "Usage: cinstall <YYYYMMDD>"
+	exit 1
+fi
+
+export PATH=/usr/local/versions/jdk1.7.0_11/bin:/usr/local/dcs/versions/jdk1.7.0_51_x64/bin:/usr/local/dcs/versions/jdk1.7.0_51/bin:/usr/local/cuda/bin:$PATH
+
+EXEJAR=pj2_${1}.jar
+CSRCJAR=pj2csrc_${1}.jar
+
+echo "Extracting C sources..."
+jar xf $CSRCJAR
+
+echo "Compiling C/CUDA source files..."
+bash ccompile
+
+echo "Updating JAR file..."
+cd lib
+jar uf ../$EXEJAR `find . -name '*.cubin'` `find . -name '*.ptx'`
+
+echo "Installing native library..."
+mv *.so ..
+
+echo "Cleaning up..."
+cd ..
+rm -r lib ccompile

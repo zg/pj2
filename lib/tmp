@@ -1,0 +1,23 @@
+	./edu/rit/draw/item/Group.java
+	./edu/rit/draw/item/Text.java
+	./edu/rit/http/HttpRequest.java
+	./edu/rit/http/HttpResponse.java
+	./edu/rit/io/InStream.java
+	./edu/rit/io/OutStream.java
+	./edu/rit/io/ThreadedOutputStream.java
+	./edu/rit/numeric/Mathe.java
+	./edu/rit/numeric/plot/impl/Label.java
+	./edu/rit/numeric/plot/impl/XYPlot.java
+	./edu/rit/numeric/plot/Plot.java
+	./edu/rit/pj2/JarClassLoader.java
+	./edu/rit/pj2/TupleRequestMap.java
+	./edu/rit/pj2/TupleSpace.java
+	./edu/rit/pj2/test/Test03.java
+	./edu/rit/pj2/test/Test04.java
+	./edu/rit/pj2/test/Test06.java
+	./edu/rit/pj2/tracker/Launcher.java
+	./edu/rit/pj2/tracker/TaskMap.java
+	./edu/rit/pj2/tracker/Tracker.java
+./edu/rit/pjmr/Combiner.java
+	./edu/rit/util/Instance.java
+	./edu/rit/util/RandomSubset.java

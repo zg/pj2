@@ -1,0 +1,141 @@
+<HTML>
+<HEAD>
+<TITLE>Package edu.rit.gpu</TITLE>
+</HEAD>
+<BODY>
+
+Package edu.rit.gpu contains classes for
+Parallel Java 2's graphics processing unit (GPU) programming capability.
+At present the package supports GPU kernels
+written using Nvidia Corporation's CUDA version 5.0.
+
+<P>
+A PJ2 GPU program's main program is written in Java using PJ2.
+The GPU kernels are written in C or C++ using CUDA.
+Classes in package edu.rit.gpu
+let the main program transfer data
+between the CPU's memory and the GPU's memory,
+execute kernel functions on the GPU,
+and do other GPU related operations.
+
+<P>
+<A HREF="#installation">Installation</A>
+<BR><A HREF="#usage">Usage</A>
+<BR><A HREF="#writing">Writing PJ2 GPU Programs</A>
+
+<P>
+<HR>
+<A NAME="installation"><H2>Installation</H2></A>
+
+<P>
+Do the following steps to install PJ2's GPU capability.
+These steps are not needed
+if PJ2's GPU capability is not needed.
+Some familiarity with the Java Native Interface (JNI)
+would be helpful;
+see Sheng Liang,
+<I>Java Native Interface: Programmer's Guide and Specification</I>
+(Addison-Wesley, 1999).
+<OL TYPE=1>
+<P><LI>
+Install CUDA.
+<P><LI>
+Install the PJ2 <B><I>source</I></B> distribution as described in the
+<A HREF="../../../overview-summary.html#installation">Overview</A>.
+<P><LI>
+Change to the <TT>lib/</TT> directory
+in the source distribution
+and run the <TT>ccompile</TT> shell script.
+On a Linux system,
+this compiles the <TT>edu_rit_gpu_Cuda.c</TT> source file
+and creates the <TT>libEduRitGpuCuda.so</TT> native code library file.
+You might need to modify the shell script
+to create the proper native code library file for your system.
+<P><LI>
+Move the native code library file
+to a directory on the load library path,
+where the Java Virtual Machine can find it.
+See "Usage" below.
+<P><LI>
+Change to the <TT>lib/edu/rit/gpu/example/</TT> directory
+in the source distribution
+and run the <TT>ccompile</TT> shell script.
+This compiles the CUDA module files
+needed by the Java classes in package
+<A HREF="example/package-summary.html">edu.rit.gpu.example</A>.
+You might need to modify the shell script for your system.
+<P><LI>
+Change to the <TT>lib/edu/rit/gpu/test/</TT> directory
+and run the <TT>ccompile</TT> shell script.
+This compiles the CUDA module files
+needed by the Java classes in package
+<A HREF="test/package-summary.html">edu.rit.gpu.test</A>.
+You might need to modify the shell script for your system.
+<P><LI>
+If you are installing the PJ2 <B><I>executable</I></B> distribution
+as described in the
+<A HREF="../../../overview-summary.html#installation">Overview</A>,
+the compiled CUDA module files
+must be added to the PJ2 JAR file.
+Change to the <TT>lib/</TT> directory
+in the source distribution
+and run this command:
+<BR><TT>&nbsp;&nbsp;&nbsp;&nbsp;jar uf &lt;jarfile&gt; edu/rit/gpu/*/*.cubin edu/rit/gpu/*/*.ptx</TT>
+<BR>replacing <TT>&lt;jarfile&gt;</TT>
+with the pathname of the PJ2 JAR file.
+</OL>
+
+<P>
+<HR>
+<A NAME="usage"><H2>Usage</H2></A>
+
+<P>
+When compiling and executing Java programs
+that use PJ2's GPU capability,
+in addition to setting the Java class path
+as described in the
+<A HREF="../../../overview-summary.html#usage">Overview</A>,
+you must also set your load library path
+to include the directory where the PJ2 native code library file resides.
+Here is an example of a command for the <TT>bash</TT> shell
+to add an appropriate directory
+to the front of the load library path:
+
+<P>
+<TT>export&nbsp;LD_LIBRARY_PATH=/var/tmp/parajava/pj2:$LD_LIBRARY_PATH</TT>
+
+<P>
+Here is an example of a command for the <TT>csh</TT> shell
+to add an appropriate directory
+to the front of the load library path:
+
+<P>
+<TT>setenv&nbsp;LD_LIBRARY_PATH&nbsp;/var/tmp/parajava/pj2:$LD_LIBRARY_PATH</TT>
+
+<P>
+<HR>
+<A NAME="writing"><H2>Writing PJ2 GPU Programs</H2></A>
+
+<P>
+Use class <A HREF="Gpu.html">Gpu</A>
+to configure GPU devices,
+load compiled GPU module files,
+and set up dynamically allocated variables in GPU memory.
+
+<P>
+Use class <A HREF="Module.html">Module</A>
+to get statically allocated GPU variables
+and GPU kernel functions
+from a compiled GPU module.
+
+<P>
+Use interface <A HREF="Kernel.html">Kernel</A>
+to configure and execute GPU kernel functions.
+
+<P>
+For further information,
+study and run the example programs in package
+<A HREF="example/package-summary.html">edu.rit.gpu.example</A>.
+
+</BODY>
+</HTML>

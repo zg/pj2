@@ -1,0 +1,3 @@
+#!/bin/bash
+
+gcc -I/opt/jdk1.7/include -I/opt/jdk1.7/include/linux -I/opt/cuda/include -I/usr/local/dcs/jdk/include -I/usr/local/dcs/jdk/include/linux -I/usr/local/cuda/include -shared -fPIC -o libEduRitGpuCuda.so edu_rit_gpu_Cuda.c -lcuda

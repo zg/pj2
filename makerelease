@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ "$1" == "" ]]
+	then
+	echo "Usage: makerelease <YYYYMMDD>"
+	exit 1
+fi
+
+TGZ=release/${1}.tgz
+tar cfz $TGZ .bashrc ccompile cinstall compile jcompile lib makejars makerelease packages.txt runjavadoc

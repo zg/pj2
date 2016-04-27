@@ -1,0 +1,11 @@
+     * <P>
+     * To run a PJ2 job on a cluster, grid, or cloud, a user typically logs into
+     * a <I>frontend node</I> and executes the {@linkplain pj2 pj2} launcher
+     * program. This creates a process on the frontend node, in which the job
+     * runs. The job in turn launches tasks that by default run on one or more
+     * <I>backend nodes</I>. To force a task to run on the frontend node in the
+     * same process as the job itself, specify <TT>frontend(true)</TT>. This may
+     * be necessary if tasks running on backend nodes do not run in the user's
+     * account, but a certain task needs to run in the user's account -- for
+     * example, to read or write files in the user's account.
+

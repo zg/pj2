@@ -1,0 +1,7 @@
+#!/bin/bash
+
+nvcc --ptx Test01.cu
+nvcc --ptx Test02.cu
+nvcc --ptx Test03.cu
+nvcc --ptx Test04.cu
+nvcc --ptx Test06.cu

@@ -1,0 +1,1075 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+
+<P>
+Parallel Java 2 (PJ2) is
+an API and middleware for parallel programming in 100% Java
+on multicore parallel computers,
+cluster parallel computers,
+hybrid multicore cluster parallel computers,
+and GPU accelerated parallel computers.
+PJ2 also includes a lightweight map-reduce framework.
+PJ2 was developed by Professor Alan Kaminsky
+in the Department of Computer Science
+at the Rochester Institute of Technology.
+
+<P>
+I am happy to answer general questions about the Parallel Java 2 Library,
+receive bug reports,
+and entertain requests for additional features.
+Please contact me by email at
+ark<FONT SIZE="1" COLOR="#FFFFFF">&shy;</FONT>&#64;<FONT SIZE="1" COLOR="#FFFFFF">&shy;</FONT>cs.rit.edu.
+I regret that I am unable to provide technical support,
+specific installation instructions for your system,
+or advice about configuring your parallel computer hardware.
+
+<P>
+<A HREF="#requirements">System Requirements</A>
+<BR><A HREF="#installation">Installation</A>
+<BR><A HREF="#usage">Usage</A>
+<BR><A HREF="#programming">Parallel Programming with PJ2</A>
+<BR><A HREF="#license">License</A>
+<BR><A HREF="#history">Revision History</A>
+
+<P>
+<HR>
+<A NAME="requirements"><H2>System Requirements</H2></A>
+
+<P>
+PJ2 was developed using
+Java Development Kit (JDK) 1.7.
+When compiling and running PJ2 programs,
+you must use JDK 1.7 or higher.
+PJ2 uses features of the Java language and platform
+introduced in JDK 1.7
+and will not compile with earlier JDK versions.
+
+<P>
+<HR>
+<A NAME="installation"><H2>Installation</H2></A>
+
+<P>
+There are two versions of the PJ2 distribution,
+an executable distribution
+and a source distribution.
+
+<P>
+<B>Executable distribution.</B>
+The executable distribution comes in a Java Archive (JAR) file
+named <TT>"pj2_<I>YYYYMMDD</I>.jar"</TT>,
+where <I>YYYYMMDD</I> are the year, month, and date.
+The executable distribution includes the PJ2 class files only.
+To install the executable distribution,
+simply store the JAR file somewhere.
+You may wish to change the file name,
+say to <TT>"pj2.jar"</TT>.
+
+<P>
+<B>Source distribution.</B>
+The source distribution comes in a Java Archive (JAR) file
+named <TT>"pj2src_<I>YYYYMMDD</I>.jar"</TT>,
+where <I>YYYYMMDD</I> are the year, month, and date.
+The source distribution includes the PJ2 class files,
+source files, and documentation files (Javadoc).
+To install the source distribution,
+just unpack the JAR file.
+The source distribution expands into a subdirectory
+named <TT>"pj2"</TT>.
+If you already have a subdirectory of that name
+which you want to save,
+be sure to unpack the JAR file
+in some other directory.
+Documentation is stored under the directory
+<TT>"pj2/doc"</TT>;
+point your HTML browser to that directory.
+Java source files and class files
+are stored under the directory
+<TT>"pj2/lib"</TT>.
+
+<P>
+<B>Installation on a multicore computer.</B>
+To run PJ2 programs on a single multicore parallel computer,
+no further installation is required.
+
+<P>
+<B>Installation on a cluster.</B>
+To run PJ2 programs on a cluster parallel computer,
+on a computing grid, or in the cloud,
+in addition to installing the PJ2 JAR file,
+you must configure and run certain daemon processes
+on the frontend and backend processors of the cluster.
+For further information, see package
+<A HREF="edu/rit/pj2/tracker/package-summary.html">edu.rit.pj2.tracker</A>.
+
+<P>
+<B>Installation for use with GPUs.</B>
+PJ2 programs can execute graphics processing unit (GPU) code
+using the classes in package
+<A HREF="edu/rit/gpu/package-summary.html">edu.rit.gpu</A>;
+refer to that package for instructions
+on installing PJ2's GPU capability.
+
+<P>
+<HR>
+<A NAME="usage"><H2>Usage</H2></A>
+
+<P>
+<B>Executable distribution.</B>
+When compiling and executing Java programs
+that use PJ2,
+if you have installed the executable distribution,
+you must set your classpath
+to include the PJ2 JAR file.
+Here is an example of a command for the <TT>bash</TT> shell
+to set the classpath to the current directory
+plus the PJ2 JAR file:
+
+<P>
+<TT>export&nbsp;CLASSPATH=.:/home/fac/ark/public_html/pj2.jar</TT>
+
+<P>
+Here is an example of a command for the <TT>csh</TT> shell
+to set the classpath to the current directory
+plus the PJ2 JAR file:
+
+<P>
+<TT>setenv&nbsp;CLASSPATH&nbsp;.:/home/fac/ark/public_html/pj2.jar</TT>
+
+<P>
+<B>Source distribution.</B>
+When compiling and executing Java programs
+that use PJ2,
+if you have installed the source distribution,
+you must set your classpath
+to include the top-level directory
+under which PJ2's Java class files are stored.
+
+<P>
+<B>PJ2 GPU programs.</B>
+When compiling and executing Java programs
+that use PJ2's GPU capability,
+you must also set your load library path.
+For further information, see package
+<A HREF="edu/rit/gpu/package-summary.html">edu.rit.gpu</A>.
+
+<P>
+<HR>
+<A NAME="programming"><H2>Parallel Programming with PJ2</H2></A>
+
+<OL TYPE=1>
+<P><LI>
+Install PJ2 as described above.
+<P><LI>
+Read the documentation for the PJ2 classes. Start with these:
+<BR>&mdash; Package <A HREF="edu/rit/pj2/package-summary.html">edu.rit.pj2</A>
+<BR>&mdash; PJ2 launcher program, <A HREF="pj2.html"><TT>pj2</TT></A>
+<BR>&mdash; Class <A HREF="edu/rit/pj2/Task.html">edu.rit.pj2.Task</A>
+<BR>&mdash; Class <A HREF="edu/rit/pj2/Job.html">edu.rit.pj2.Job</A>
+<P><LI>
+Set the Java classpath as described above.
+<P><LI>
+Study and run the example programs in package
+<A HREF="edu/rit/pj2/example/package-summary.html">edu.rit.pj2.example</A>.
+<P><LI>
+Write and run your own PJ2 programs!
+<P>
+Optionally:
+<P><LI>
+Install the PJ2 GPU capability as described above.
+<P><LI>
+Read the documentation for the PJ2 GPU capability. Start with these:
+<BR>&mdash; Package <A HREF="edu/rit/gpu/package-summary.html">edu.rit.gpu</A>
+<BR>&mdash; Class <A HREF="edu/rit/gpu/Gpu.html">edu.rit.gpu.Gpu</A>
+<BR>&mdash; Class <A HREF="edu/rit/gpu/Module.html">edu.rit.gpu.Module</A>
+<BR>&mdash; Interface <A HREF="edu/rit/gpu/Kernel.html">edu.rit.gpu.Kernel</A>
+<P><LI>
+Set the load library path as described above.
+<P><LI>
+Study and run the example programs in package
+<A HREF="edu/rit/gpu/example/package-summary.html">edu.rit.gpu.example</A>.
+<P><LI>
+Write and run your own PJ2 GPU programs!
+</OL>
+
+<P>
+<HR>
+<A NAME="license"><H2>License</H2></A>
+
+<P>
+The documentation files,
+Java source files,
+Java class files,
+and C source files
+in the Parallel Java 2 Library
+("PJ2")
+are copyright &copy; 2013&ndash;2016
+by Alan Kaminsky.
+All rights reserved.
+For further information, contact the author, Alan Kaminsky,
+at ark<FONT SIZE="1" COLOR="\#FFFFFF">&shy;</FONT>&#64;<FONT SIZE="1" COLOR="\#FFFFFF">&shy;</FONT>cs.rit.edu.
+<P>
+PJ2 is free software; you can redistribute it and/or modify it under the terms
+of the GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or (at your option) any later version.
+<P>
+PJ2 is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+details.
+<P>
+A copy of the GNU General Public License
+is provided in the file <A HREF="doc-files/gpl.txt"><TT>gpl.txt</TT></A>.
+You may also obtain a copy of the GNU General Public License
+on the World Wide Web at
+<A HREF="http://www.gnu.org/licenses/gpl.html" TARGET="_top">http://www.gnu.org/licenses/gpl.html</A>.
+
+<P>
+<HR>
+<A NAME="history"><H2>Revision History</H2></A>
+
+<DL COMPACT>
+
+<P><DT>06-Apr-2016
+<DD>
+In class edu.rit.numeric.BigInteger:
+Added bitwise-exclusive-or, bitwise-or,
+bitwise-and, and bitwise-and-not methods
+that take integer and long integer arguments.
+Added packing and unpacking methods
+that use big-endian order.
+(The existing packing and unpacking methods
+still use little-endian order.)
+
+<P><DT>21-Mar-2016
+<DD>
+In package edu.rit.gpu.example:
+Added program KnapsackBnbGpu,
+a GPU parallel program
+that solves a Knapsack Problem instance
+using a branch-and-bound search.
+
+<P><DT>12-Mar-2016
+<DD>
+In package edu.rit.gpu.example:
+Fixed a bug in GPU kernel function KnapsackExhGpu.cu;
+the best solution was not updated properly
+after evaluating a candidate solution.
+
+<P><DT>11-Mar-2016
+<DD>
+In package edu.rit.gpu.example:
+Added program KnapsackExhGpu,
+a GPU parallel program
+that solves a Knapsack Problem instance
+using an exhaustive search.
+Added program WalkSackGpu,
+a GPU parallel program
+that solves a Knapsack Problem instance
+using a random walk.
+<P>
+In class edu.rit.util.Instance:
+The <TT>newInstance()</TT> methods
+now support arguments of type <TT>int</TT>, <TT>long</TT>, or String
+and integer values expressed in binary, octal, decimal, or hexadecimal.
+
+<P><DT>11-Jan-2016
+<DD>
+In package edu.rit.numeric:
+Added class BigInteger.
+Removed class BigRational.
+Removed method <TT>Statistics.binomialKsTest()</TT>.
+<P>
+In package edu.rit.numeric.plot:
+Fixed bugs in class Plot;
+the automatic axis scaling sometimes threw an exception.
+<P>
+Changed class edu.rit.pj2.Job:
+If the <TT>trackerHost</TT> property is set to <TT>"none"</TT>,
+the job will not try to connect to the Tracker.
+This can also be specified on the <TT>pj2</TT> command line
+with the option <TT>tracker=none</TT>.
+On some operating systems (notably Windows),
+if the Tracker is not running
+when a job tries to connect to the Tracker,
+the job is delayed
+until the connection attempt times out.
+Specifying <TT>tracker=none</TT> works around this issue.
+On other operating systems (notably Ubuntu Linux),
+this issue does not arise,
+and <TT>tracker=none</TT> need not be specified.
+<P>
+In package edu.rit.pjmr.util:
+Fixed a bug in class ScatterFiles;
+files were not distributed to backend nodes
+such that the total file size on each node
+was about the same.
+
+<P><DT>11-Aug-2015
+<DD>
+Added package edu.rit.pjmr.util
+with general utility classes and programs for 
+Parallel Java Map Reduce (PJMR).
+<P>
+In package edu.rit.pjmr.example:
+Changed the web log analysis programs WebLog01 through WebLog04
+to include an optional pattern argument
+that limits the analysis
+to log entries that match the pattern.
+Added programs WebLog05 and MaxTemp01.
+<P>
+In package edu.rit.pj2.vbl:
+Changed classes DoubleVbl.Mean and FloatVbl.Mean:
+Added a constructor with a <TT>value</TT> argument;
+changed the <TT>accumulate()</TT> method
+to return a reference to this shared variable.
+
+<P><DT>21-Jul-2015
+<DD>
+In package edu.rit.pj2.example:
+In classes HamCycClu and HamCycSmp:
+Changed the <TT>found</TT> flag to be declared volatile.
+In class MineCoinClu3:
+Changed the <TT>stop</TT> flag to be declared volatile.
+
+<P><DT>13-Jul-2015
+<DD>
+In package edu.rit.pjmr:
+Fixed a bug in class Combiner;
+the <TT>clone()</TT> method was not implemented properly.
+This required adding cloning support
+to classes edu.rit.util.Set and edu.rit.util.Map.
+
+<P><DT>01-Jul-2015
+<DD>
+In package edu.rit.pj2.example:
+Rewrote programs HamCycSeq, HamCycSmp, and HamCycClu
+to simplify the data structures.
+
+<P><DT>26-May-2015
+<DD>
+In package edu.rit.pj2:
+Added classes ObjectParallelForLoop and WorkQueue;
+these provide a parallel for loop
+that iterates over the work items in a work queue.
+Added method <TT>parallelFor(WorkQueue)</TT> to class Task.
+Removed class IteratorParallelForLoop;
+removed methods <TT>parallelFor(Iterator)</TT>
+and <TT>parallelFor(Iterable)</TT> from class Task;
+use a work queue instead.
+Added class TupleListener
+and method <TT>addTupleListener()</TT> in class Task;
+these allow reading and taking tuples with a listener pattern.
+<P>
+In package edu.rit.pj2.example:
+Added programs HamCycSeq, HamCycSmp, and HamCycClu
+to find a Hamiltonian cycle in a graph;
+the latter two use the parallel work queue pattern
+on a single multicore node and on a cluster, respectively.
+<P>
+In package edu.rit.util:
+In classes BitSet32, BitSet64, and BitSet:
+Added method <TT>randomElement()</TT>.
+<P>
+In package edu.rit.numeric:
+Added class Histogram.
+<P>
+In package edu.rit.pj2.vbl:
+Changed bitset reduction variable classes
+BitSetVbl, BitSet32Vbl, and BitSet64Vbl
+to be tuples wrapping instances of
+classes BitSet, BitSet32, and BitSet64, respectively.
+Changed histogram reduction variable class HistogramVbl
+to be a tuple wrapping an instance of class Histogram.
+<P>
+In package edu.rit.pj2.example:
+Changed the minimum vertex cover example programs
+to use the new bitset classes
+and the new bitset reduction variable classes.
+Changed the statistical test example programs
+to use the new histogram class
+and the new histogram reduction variable class.
+<P>
+In class edu.rit.util.Random:
+Added method <TT>nextBigInteger()</TT>.
+<P>
+In class edu.rit.util.Searching:
+Added methods to search just a portion of an array;
+added convenience methods
+to search an array in ascending order;
+added methods to search lists.
+<P>
+In class edu.rit.util.Sorting:
+Added methods to sort just a portion of an array;
+added convenience methods
+to sort an array into ascending order;
+added methods to sort lists.
+
+<P><DT>16-Feb-2015
+<DD>
+Fixed bugs in the <TT>clone()</TT> methods in several classes;
+the methods did not create an instance of the correct class
+when an instance of a subclass was cloned.
+<P>
+Fixed a bug in class edu.rit.util.BitSet;
+the private fields were not initialized correctly in all cases.
+Thank you to Vaibhav Gandhi for discovering the bug.
+<P>
+In class edu.rit.numeric.Mathe:
+Added the <TT>logBinomProb()</TT>,
+<TT>binomProb()</TT>,
+and <TT>cumulBinomProb()</TT> methods.
+
+<P><DT>09-Feb-2015
+<DD>
+In class edu.rit.pj2.vbl.HistogramVbl;
+Fixed a bug:
+the <TT>clone()</TT> method did not work properly in all cases;
+added <TT>prob()</TT>, <TT>expectedCount()</TT>,
+and <TT>expectedProb()</TT> methods.
+
+<P><DT>06-Feb-2015
+<DD>
+In package edu.rit.pj2.vbl:
+Added class HistogramVbl and several subclasses.
+These provide reduction variable classes
+for histograms of various types of data.
+<P>
+In package edu.rit.util:
+Added <TT>searchInterval()</TT> methods to class Searching.
+
+<P><DT>18-Jan-2015
+<DD>
+In package edu.rit.util:
+In classes AList, DList, IntList, and LongList,
+added a <TT>removeEachItemIf()</TT> method
+that scans the list and optionally removes items.
+Added classes and interfaces
+Set, MultiSet, LongMultiSet, BitSet, BitSet32, BitSet64,
+PairBase, Pair, IntPair, LongPair, IdentityPair,
+Map, IdentityMap,
+DoubleAction, DoubleActionResult, DoublePredicate, DoubleList,
+FloatAction, FloatActionResult, FloatPredicate, FloatList.
+<P>
+In package edu.rit.io:
+Added <TT>writeObjectArray()</TT> and <TT>writeReferenceArray()</TT> methods
+to class OutStream.
+Added <TT>readObjectArray()</TT> and <TT>readReferenceArray()</TT> methods
+to class InStream.
+<P>
+Added package edu.rit.pj2.tuple
+with several tuple subclasses.
+The Tuple base class remains in package edu.rit.pj2.
+<P>
+Added package edu.rit.pj2.vbl.
+Moved the reduction variable classes
+from package edu.rit.pj2 to package edu.rit.pj2.vbl.
+The Vbl interface remains in package edu.rit.pj2.
+Added classes BitSetVbl, BitSet32Vbl, BitSet64Vbl.
+<P>
+Changed classes throughout the Library
+to use the above classes.
+
+<P><DT>07-Nov-2014
+<DD>
+In package edu.rit.pj2:
+Added a method to each Vbl subclass
+to return the variable's value,
+such as <TT>intValue()</TT>, <TT>doubleValue()</TT>, and so on.
+In class DoubleVbl.Mean,
+eliminated the <TT>mean()</TT> method;
+use the <TT>doubleValue()</TT> method instead.
+In class FloatVbl.Mean,
+eliminated the <TT>mean()</TT> method;
+use the <TT>floatValue()</TT> method instead.
+<P>
+In package edu.rit.pjmr:
+Added the <TT>toString()</TT>, <TT>equals()</TT>,
+and <TT>hashCode()</TT> methods
+to class TextId.
+Added the <TT>noMatchIsError()</TT> method
+to class TextDirectorySource.
+
+<P><DT>05-Nov-2014
+<DD>
+In package edu.rit.pjmr:
+Redesigned the communication between
+the mapper tasks and the reducer task
+to include flow control;
+this prevents the mapper tasks
+from getting too far ahead
+of the reducer task.
+Changed class Pair to be streamable.
+In class Combiner,
+added the ability to return custom Pair subclasses
+when iterating over the (key, value) pairs;
+the intention is to support more efficient streaming of pairs
+than the default implementation of streaming in class Pair.
+Added class TextDirectorySource.
+<P>
+In package edu.rit.pjmr.example:
+Added program Concordance04.
+
+<P><DT>29-Oct-2014
+<DD>
+In package edu.rit.gpu.example:
+Added class ZombieGpu2
+to illustrate the use of C structures in the GPU kernel
+and the corresponding Java classes in the main program.
+
+<P><DT>12-Oct-2014
+<DD>
+In package edu.rit.gpu.example:
+Fixed a bug in class ZombieGpu;
+the convergence criterion was not implemented correctly.
+
+<P><DT>10-Oct-2014
+<DD>
+In package edu.rit.gpu.example:
+Added the <I>steps</I> argument
+to the ZombieGpu program.
+
+<P><DT>19-Sep-2014
+<DD>
+Fixed a bug in class edu.rit.pj2.Backend;
+the standard output and standard error streams
+were not flushed to the console
+properly in all cases.
+Thank you to Umang Gala for discovering the bug.
+
+<P><DT>22-Jul-2014
+<DD>
+Changed class edu.rit.http.HttpServer.
+The HTTP server now processes each incoming socket connection
+in a separate thread obtained from an internal thread pool.
+If the HTTP server encounters an I/O error
+while trying to read an HTTP request message
+from an incoming socket connection,
+the HTTP server now closes the connection without processing anything.
+These changes help defend against malicious behavior
+on the part of clients.
+<P>
+Fixed a bug in class edu.rit.pj2.tracker.Tracker;
+if there was a problem with an incoming socket connection
+to the Tracker's HTTP server,
+the Tracker could freeze,
+causing heartbeats to fail and jobs to terminate.
+Also, changed the Tracker's summary web page URL
+to <TT>http://<I>host</I>:<I>port</I>/summary</TT>;
+consequently, the Tracker will not respond with status information
+if a client requests the default home page;
+this is to fend off web crawlers.
+
+<P><DT>21-Jul-2014
+<DD>
+Fixed a bug in class edu.rit.util.Heartbeat;
+the methods were not properly synchronized.
+
+<P><DT>08-Jul-2014
+<DD>
+In class edu.rit.pj2.TaskSpec:
+Changed the <TT>args()</TT> method
+to append arguments to the task's command line argument array,
+instead of replacing the task's command line argument array.
+<P>
+In package edu.rit.pj2.example:
+Fixed a bug in class MineCoinClu3;
+the StopTuple class did not override
+the <TT>writeOut()</TT> and <TT>readIn()</TT> methods.
+Changed the continuous cellular automaton programs
+and the Mandelbrot Set programs
+to turn on world read and write permissions
+for the output files.
+Changed the ZombieClu program
+to simplify the tuple subclasses.
+
+<P><DT>02-Jul-2014
+<DD>
+In package edu.rit.io:
+Changed classes Color, ColorArray, Gray, and GrayArray
+to be streamable instead of serializable.
+Added the <TT>copy()</TT> method to classes ColorArray and GrayArray.
+<P>
+In package edu.rit.pj2:
+Added documentation to class Tuple
+emphasizing that tuple objects
+are assumed to be immutable.
+Changed class Job;
+when putting multiple copies of a tuple into tuple space,
+the job puts multiple references to the tuple
+rather than multiple clones of the tuple;
+this is safe because tuples are assumed to be immutable.
+Changed the tuple space implementation in class TupleSpace;
+eliminated separate lists of tuples
+for each tuple subclass.
+<P>
+In package edu.rit.pj2.tracker:
+Changed class Proxy
+to turn on the <TT>TCP_NODELAY</TT> option
+for all socket connections;
+this allows interprocess messages to be sent more quickly
+and reduces the running time
+of tightly coupled cluster parallel programs.
+<P>
+In package edu.rit.pj2.example:
+Added a <TT><I>steps</I></TT> command line argument
+to the ZombieSeq, ZombieSmp, and ZombieClu programs.
+Added class CCACell.
+Changed the CCASeq, CCASmp, and CCAClu programs
+to use class CCACell.
+Added class MandelbrotClu.
+
+<P><DT>20-Jun-2014
+<DD>
+In package edu.rit.pj2:
+Fixed bugs in classes WorkerIntParallelForLoop
+and WorkerLongParallelForLoop;
+properties set on the parallel for loop object
+did not override properties of the enclosing task.
+<P>
+In package edu.rit.pj2.example:
+Added program MinVerCovDist.
+<P>
+In package edu.rit.numeric:
+Added several methods to class Mathe.
+Added class NormalFit.
+
+<P><DT>17-Jun-2014
+<DD>
+Fixed a bug in class edu.rit.pj2.tracker.JobReceiver;
+insufficient buffer space was allocated
+to receive a "write standard stream" message.
+<P>
+In package edu.rit.pj2.example:
+Tweaked programs MinVerCovSeq and MinVerCovSmp.
+Added programs MinVerCovSeq2, MinVerCovSmp2,
+MinVerCovSeq3, and MinVerCovSmp3.
+These solve the minimum vertex cover problem
+in various ways.
+
+<P><DT>06-Jun-2014
+<DD>
+In class edu.rit.pj2.Task:
+Changed the names of the
+<TT>initialNodeName()</TT>,
+<TT>initialCores()</TT>,
+and <TT>initialGpus()</TT> methods to
+<TT>nodeNameRequired()</TT>,
+<TT>coresRequired()</TT>,
+and <TT>gpusRequired()</TT>, respectively.
+Added the ability to specify
+that a task requires all the GPU accelerators on the node.
+<P>
+In package edu.rit.io:
+Added class ThreadedOutputStream,
+which automatically synchronizes multiple threads
+writing to an underlying output stream.
+<P>
+In package edu.rit.pj2:
+Changed class Job and class Task
+to use a ThreadedOutputStream
+when printing to <TT>System.out</TT> and <TT>System.err</TT>.
+The printouts actually appear on the console when
+the job or task terminates; to make the printouts appear earlier, call
+<TT>System.out.flush()</TT> or <TT>System.err.flush()</TT>.
+Eliminated the no-longer-needed class Print.
+<P>
+In package edu.rit.gpu:
+Added the ability to work with C struct data types;
+see classes Struct, GpuStructVbl, and GpuStructArray.
+In package edu.rit.gpu.example:
+Added program Powers to illustrate the use of C struct data types
+in Java GPU parallel programs.
+<P>
+In package edu.rit.pj2.example:
+Added programs RandomGraph, MinVerCovSeq, and MinVerCovSmp,
+which find a minimum vertex cover of a graph via exhaustive search.
+
+<P><DT>13-Apr-2014
+<DD>
+In package edu.rit.gpu:
+Added class GpuMatrix and subclasses
+to provide matrix variables (two-dimensional arrays)
+on the GPU.
+In package edu.rit.gpu.example:
+Added classes OuterProductGpu and OuterProductSeq.
+<P>
+In package edu.rit.util:
+Added class PriorityQueue.
+In package edu.rit.sim:
+Changed classes Event and Simulation
+to use class PriorityQueue.
+
+<P><DT>25-Mar-2014
+<DD>
+Added GPU support in package edu.rit.gpu.
+Added GPU example programs in package edu.rit.gpu.example.
+Added GPU unit test programs in package edu.rit.gpu.test.
+<P>
+Added protected static methods to class edu.rit.pj2.Task
+that can optionally be overridden
+to specify the initial
+<TT>threads</TT>, <TT>schedule</TT>, <TT>chunk</TT>,
+<TT>nodeName</TT>, <TT>cores</TT>, and/or <TT>gpus</TT> properties
+for all instances of the Task subclass.
+<P>
+In class edu.rit.pj2.tracker.Tracker:
+Added support for allocating GPU devices to tasks.
+As a consequence, 
+the message format is now incompatible
+with earlier versions of the Library.
+
+<P><DT>14-Mar-2014
+<DD>
+In package edu.rit.pjmr:
+Fixed bugs that caused deserialization errors
+when PJMR jobs were run on a cluster.
+<P>
+In class edu.rit.numeric.Mathe:
+Added the <TT>log2()</TT> method.
+
+<P><DT>04-Feb-2014
+<DD>
+Added the <TT>jvmFlags</TT> property to the <TT>pj2</TT> program.
+Added the <TT>jvmFlags()</TT> method to class edu.rit.pj2.Job.
+Added class edu.rit.numeric.Mathe.
+
+<P><DT>28-Jan-2014
+<DD>
+In class edu.rit.pj2.Job:
+Two methods are now named <TT>masterSchedule()</TT>
+and <TT>masterChunk()</TT>
+rather than <TT>workerSchedule()</TT>
+and <TT>workerChunk()</TT>.
+<P>
+In class pj2:
+Two command line options are now named <TT>masterSchedule</TT>
+and <TT>masterChunk</TT>
+rather than <TT>workerSchedule</TT>
+and <TT>workerChunk</TT>.
+
+<P><DT>26-Jan-2014
+<DD>
+I made numerous changes to
+the Parallel Java 2 Library
+based on my experience teaching and working with it
+during RIT's fall 2013 semester.
+The major changes are summarized below.
+<P>
+Added class edu.rit.numeric.Int96.
+Removed classes edu.rit.util.Range and edu.rit.util.LongRange;
+these were replaced by classes
+edu.rit.pj2.Chunk and edu.rit.pj2.LongChunk.
+<P>
+For multicore parallel programming in package edu.rit.pj2:
+Added the "proportional" enumeral to enum Schedule.
+Added classes Chunk, LongChunk,
+DoubleVbl.Mean, and FloatVbl.Mean.
+Rewrote the parallel for loop classes
+to partition the loop iterations
+using the new Int96 class
+instead of java.math.BigInteger.
+To avert false sharing
+between different threads' thread-local variables,
+added hidden padding fields to class LoopBody,
+all the Vbl subclasses,
+and classes edu.rit.crypto.RC4,
+edu.rit.crypto.SHA256,
+and edu.rit.util.Random.
+<P>
+For cluster parallel programming in package edu.rit.pj2:
+The syntax for specifying rules in a job was simplified.
+The default number of cores a task requires
+is now all cores on the node, rather than one core.
+There are now methods for specifying
+the <TT>nodeName</TT>, <TT>cores</TT>, <TT>gpus</TT>,
+<TT>workers</TT>, <TT>workerSchedule</TT>, and <TT>workerChunk</TT> properties
+of tasks and jobs,
+and those properties can now be specified
+on the <TT>pj2</TT> command line;
+see classes Job, Rule, TaskSpec, and Task for further information.
+In a task launched by an on-demand rule,
+the methods for getting the matching tuples
+that caused the rule to fire
+are now <TT>matchingTupleCount()</TT> and <TT>getMatchingTuple()</TT>.
+In a task launched by a start rule or a finish rule,
+there are no matching tuples;
+the task can still take or read tuples
+by calling <TT>takeTuple()</TT>, <TT>tryToTakeTuple()</TT>,
+<TT>readTuple()</TT>, or <TT>tryToReadTuple()</TT>.
+Added methods for master-worker cluster parallel for loops;
+see <TT>Job.masterFor()</TT> and <TT>Task.workerFor()</TT>.
+<P>
+In package edu.rit.io:
+Removed classes DataInputStream, DataOutputStream, and SerializedObject.
+Added classes/interfaces Streamable, InStream, and OutStream.
+These implement a lightweight binary I/O and object I/O capability
+as a replacement for Java Object Serialization.
+Updated classes throughout the Parallel Java 2 Library
+to use the new Streamable capability.
+As a consequence, 
+the message format is now incompatible
+with earlier versions of the Library.
+<P>
+Class edu.rit.pj2.Tuple now implements interface Streamable.
+As a consequence,
+all subclasses of class Tuple
+now must include a no-argument constructor
+and must override the <TT>writeOut()</TT> and <TT>readIn()</TT> methods
+to write and read the tuple's fields.
+If this is not done,
+tuples will not transfer between processes correctly.
+<P>
+In package edu.rit.pj2.example:
+Added programs ZombieSeq, ZombieSmp, and ZombieClu.
+<P>
+In the unnamed package:
+Removed programs StrongPlot and WeakPlot;
+these were replaced by program ScalePlot.
+
+<P><DT>02-Dec-2013
+<DD>
+In package edu.rit.pj2.tracker:
+Fixed a bug in class Tracker;
+the Tracker would die if it received incorrect data
+after accepting a socket connection.
+
+<P><DT>21-Nov-2013
+<DD>
+In package edu.rit.pjmr:
+Changed the reducer task
+to optionally sort the (key, value) pairs
+before reducing them;
+this is specified by the <TT>comesBefore()</TT> method
+of class Customizer.
+Changed the example PJMR map-reduce programs
+in package edu.rit.pjmr.example
+to use the new capability.
+
+<P><DT>20-Nov-2013
+<DD>
+Fixed several bugs in package edu.rit.pjmr.
+Added more example PJMR map-reduce programs
+in package edu.rit.pjmr.example.
+
+<P><DT>19-Nov-2013
+<DD>
+Added the Parallel Java Map Reduce Framework (PJMR),
+a simple parallel map-reduce framework
+built on top of Parallel Java 2,
+in package edu.rit.pjmr.
+Added example PJMR map-reduce programs
+in package edu.rit.pjmr.example.
+<P>
+In package edu.rit.pj2:
+The parallel for loop body classes were refactored.
+Class Loop is the body for an integer parallel for loop;
+class LongLoop is the body for a long integer parallel for loop;
+class ObjectLoop is the body for an iterator parallel for loop;
+these all extend a common LoopBody base class.
+This change improves the compile time type safety
+of the loop body classes
+and eliminates a bug
+where the iterator parallel for loop body's <TT>run()</TT> method
+could not be overridden properly.
+However,
+this requires changing programs
+with long integer parallel for loops
+to use class LongLoop instead of class Loop,
+and changing programs
+with iterator parallel for loops
+to use class ObjectLoop instead of class Loop.
+Also,
+made the <TT>threadLocal()</TT> method a generic method;
+this eliminates the need to downcast the return value.
+<P>
+In package edu.rit.pj2:
+Changed all the shared variable classes
+to extend class Tuple
+and to define the <TT>toString()</TT> method.
+Added class StringVbl.
+Added the <TT>parallelDo(int,Section)</TT> method
+to class Task;
+this executes a number of copies of the same section in parallel.
+<P>
+In package edu.rit.io:
+Added class SerializedObject.
+In package edu.rit.pj2.tracker:
+Changed the backend, job, launcher, and tracker sender and receiver classes
+to use DataInputStream and DataOutputStream with class SerializedObject,
+rather than ObjectInputStream and ObjectOutputStream.
+This fixed an intermittent bug
+where an end-of-file was encountered
+in the middle of a message.
+However,
+the message format is now incompatible
+with earlier versions of the Library.
+
+<P><DT>29-Oct-2013
+<DD>
+Fixed a bug in class edu.rit.pj2.tracker.JobSender;
+the methods were not all properly synchronized.
+
+<P><DT>24-Oct-2013
+<DD>
+Fixed a bug in class edu.rit.pj2.TupleSpace;
+removal of tuples did not work properly
+if the same tuple object was put into tuple space multiple times
+(which is allowed).
+Thank you to Pankaj Deshmukh for discovering the bug.
+
+<P><DT>06-Oct-2013
+<DD>
+In the <TT>pj2</TT> program,
+added the <TT>timelimit</TT> parameter.
+In class edu.rit.pj2.Job,
+added the <TT>timeLimit()</TT> method.
+
+<P><DT>05-Oct-2013
+<DD>
+In class edu.rit.pj2.Debug:
+Added the <TT>makespan</TT> debug printout.
+<P>
+In package edu.rit.pj2.example:
+Changed class PiClu to a hybrid parallel program.
+Added classes BCAClu, BCASmp, and TotientClu.
+<P>
+In class edu.rit.pj2.Tracker:
+Added the time each job has spent waiting or running
+on the Tracker's web interface summary page.
+
+<P><DT>19-Sep-2013
+<DD>
+In class edu.rit.pj2.Loop:
+Made the <TT>threadLocal()</TT> method a generic method;
+this eliminates the need to downcast the return value.
+Thank you to Matthew Fluet for suggesting this change.
+<P>
+In package edu.rit.pj2.example:
+Added class MineCoinClu3.
+
+<P><DT>13-Sep-2013
+<DD>
+In class edu.rit.pj2.Task:
+Changed the names of the methods that take tuples out of tuple space;
+they are now called <TT>takeTuple()</TT> and <TT>tryToTakeTuple()</TT>.
+Added methods that read tuples without taking them out of tuple space;
+they are called <TT>readTuple()</TT> and <TT>tryToReadTuple()</TT>.
+<P>
+In package edu.rit.pj2:
+Changed class Vbl to an interface.
+Eliminated class ObjectVbl;
+to do parallel reduction on an object,
+write a class that implements interface Vbl.
+This change eliminates a layer of indirection
+and simplifies programs involving parallel reduction on objects.
+
+<P><DT>02-Sep-2013
+<DD>
+In package edu.rit.pj2:
+Fixed a bug in class Job;
+tuple take requests were not processed properly
+in all cases.
+Fixed a bug in class Tuple;
+a null field was not printed properly.
+
+<P><DT>30-Aug-2013
+<DD>
+In package edu.rit.pj2:
+In class Task:
+Added the non-blocking <TT>tryToGetTuple()</TT> method.
+<P>
+In package edu.rit.util:
+In class Packing:
+Added methods to pack and unpack
+short integers to integers,
+short integers to long integers,
+and integers to long integers.
+
+<P><DT>12-Aug-2013
+<DD>
+In class edu.rit.draw.item.Arrow:
+Added the ability to specify the arrow width.
+<P>
+In package edu.rit.crypto:
+Added classes/interfaces CipherInputStream, CipherOutputStream,
+RC4, and StreamCipher.
+<P>
+In package edu.rit.pj2:
+In class Job:
+Fixed a bug;
+printouts on the standard output or standard error
+from tasks in other nodes
+were not synchronized properly.
+In class Task:
+Changed the <TT>putTuple(int,Tuple)</TT> method;
+the number of copies is now the first argument.
+<P>
+In package edu.rit.swing:
+Added a "PNG Setup" dialog to class DisplayableFrame
+that lets the user specify scale factor and resolution
+when saving a PNG file.
+As a consequence,
+the View program (in the unnamed package)
+now writes PNG files
+with a user-selectable scale factor and resolution.
+
+<P><DT>19-Jul-2013
+<DD>
+In package edu.rit.util:
+Added classes/interfaces
+LongAction,
+LongActionResult,
+LongList,
+and LongPredicate.
+<P>
+In package edu.rit.image:
+Added the ability
+to specify the physical pixel dimensions
+in the PNG image writer classes.
+<P>
+In class edu.rit.swing.DisplayableIO:
+Added the ability
+to specify the physical pixel dimensions
+in the PNG image writing methods.
+As a consequence,
+the View program (in the unnamed package)
+now writes PNG files
+at a resolution of 300&times;300 pixels per inch.
+<P>
+Added package edu.rit.crypto
+with classes/interfaces
+HashFunction
+and SHA256.
+<P>
+In package edu.rit.pj2:
+Added class TerminateException.
+Code in a job or task must not call <TT>System.exit()</TT>;
+rather, it should throw a TerminateException
+or another runtime exception
+to terminate the program.
+<P>
+In package edu.rit.pj2.example:
+Changed the Totient programs to use class LongList.
+Changed the MineCoin programs to use class SHA256.
+Changed all the programs to exit by throwing an IllegalArgumentException
+if the command line arguments are bad.
+<P>
+In package edu.rit.pj2.tracker:
+Changed class Launcher;
+the command that launches the JVM
+can now include arguments after the command name.
+
+<P><DT>12-Jul-2013
+<DD>
+The initial version of PJ2 was released.
+This version supports tightly coupled multicore parallel programming
+(class <A HREF="edu/rit/pj2/Task.html">edu.rit.pj2.Task</A>)
+and loosely coupled cluster parallel programming
+(class <A HREF="edu/rit/pj2/Job.html">edu.rit.pj2.Job</A>).
+
+</DL>
+
+</BODY>
+</HTML>

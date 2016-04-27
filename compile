@@ -1,0 +1,5 @@
+#!/bin/bash
+export PJ2_HOME=/home/ark/Projects/pj2
+
+./jcompile
+./ccompile

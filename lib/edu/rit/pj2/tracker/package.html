@@ -1,0 +1,484 @@
+<HTML>
+<HEAD>
+<TITLE>Package edu.rit.pj2.tracker</TITLE>
+</HEAD>
+<BODY>
+
+Package edu.rit.pj2.tracker contains classes
+for the Parallel Java 2 (PJ2) Tracker
+and related classes.
+
+<P>
+A PJ2 <A HREF="../Job.html">Job</A>
+consists of multiple <A HREF="../Task.html">Task</A>s
+that are executed on one or more nodes.
+Four objects cooperate to run PJ2 jobs:
+<UL>
+<P><LI>
+The <B>Job</B> itself
+(interface <A HREF="JobRef.html">JobRef</A>)
+talks to the Tracker to schedule jobs and tasks,
+and talks to the Backend to run tasks.
+<P><LI>
+The <B>Tracker</B>
+(interface <A HREF="TrackerRef.html">TrackerRef</A>)
+keeps track of all jobs and tasks in the system,
+decides when each task will run,
+decides the node on which each task will run,
+and talks to the Launcher to create Backend processes.
+The Tracker also has a web interface
+for displaying the status of the cluster.
+<P><LI>
+The <B>Launcher</B>
+(interface <A HREF="LauncherRef.html">LauncherRef</A>)
+creates processes containing Backend objects
+on a certain node.
+<P><LI>
+The <B>Backend</B>
+(interface <A HREF="BackendRef.html">BackendRef</A>)
+runs a certain task in a certain job on a certain node.
+</UL>
+
+<P>
+<B>Implementations.</B>
+Various Tracker and Launcher implementations are available
+to execute tasks on various kinds of parallel computers.
+See the classes below for further information
+about configuring and operating the various Trackers and Launchers.
+<UL>
+<P><LI>
+Class <A HREF="Tracker.html">Tracker</A> executes each task on
+one of the nodes of a cluster parallel computer. A cluster parallel computer
+typically consists of several colocated single-core or multicore nodes
+connected by a dedicated high-bandwidth network. The tracker lets multiple
+users run jobs on the cluster simultaneously, sharing the cluster's
+computational resources.
+<P><LI>
+Class <A HREF="Launcher.html">Launcher</A>,
+the counterpart of class <A HREF="Tracker.html">Tracker</A>,
+launches <A HREF="../Backend.html">Backend</A> processes on a certain node
+in a cluster parallel computer.
+Depending on how the <A HREF="Launcher.html">Launcher</A>
+is configured and run,
+the <A HREF="../Backend.html">Backend</A> processes
+might run in a special account
+(not any user's account),
+and so might not be able to access files
+in any user's account.
+<P><LI>
+Class <A HREF="PiCloudTracker.html">PiCloudTracker</A> executes each task on
+the <A HREF="http://www.picloud.com" TARGET="_top">PiCloud</A> cloud
+computing service.
+PiCloud itself serves as the Launcher,
+and each task is run as a PiCloud job.
+<B>Not yet implemented.</B>
+<P><LI>
+If the Job cannot set up a connection to the Tracker,
+the Job falls back to executing all tasks
+in the same process as the Job itself.
+</UL>
+
+<P>
+<H2>PJ2 on a Cluster Parallel Computer</H2>
+
+<P>
+A cluster parallel computer
+typically consists of a <I>frontend node</I>
+for controlling the cluster
+and a number of <I>backend nodes</I>
+for performing computations.
+The frontend and backend nodes are linked
+together by a dedicated high-speed <I>backend local network.</I>
+The frontend node can connect to the backend nodes
+over the backend local network,
+but the backend nodes
+are typically <I>not</I> accessible from the Internet.
+The frontend node also typically has
+another network interface
+that is connected to the Internet,
+allowing users to log into the frontend node.
+
+<P><CENTER><IMG SRC="doc-files/fig01.png"></CENTER>
+
+<P>
+To set up PJ2 on a cluster parallel computer,
+to be shared by many users,
+run the <A HREF="Tracker.html">Tracker</A>
+and <A HREF="Launcher.html">Launcher</A> programs
+as follows.
+
+<P>
+<B>Tracker.</B>
+Run the <A HREF="Tracker.html">Tracker</A> program
+on the frontend node.
+It is recommended to run the Tracker program
+on a separate frontend node,
+not one of the backend nodes,
+so that the full processing capacity of the backend nodes
+is available for computations.
+For security,
+it is recommended to run the Tracker program
+from a special PJ2 account,
+not from any user's account.
+<P>
+Specify the Tracker program's <TT>tracker</TT> parameter
+to be the host name or IP address
+of the Tracker's node;
+every Launcher program
+and every user's Job program
+must be able to connect to this host name.
+For security,
+it is recommended <I>not</I> to use
+an Internet-accessible host name or IP address;
+rather, use a host name or IP address
+that can only be accessed
+by logging into the node
+where the Tracker is running
+(such as the IP address of the backend local network interface).
+<P>
+Specify the Tracker program's <TT>web</TT> parameter
+to be the Internet-accessible host name or IP address
+for the Tracker's web interface.
+<P>
+Specify the Tracker program's <TT>name</TT> parameter
+to be the name of the PJ2 system.
+<P>
+Redirect the Tracker program's
+standard output and standard error
+to a log file.
+
+<P>
+<B>Launchers.</B>
+Run the <A HREF="Launcher.html">Launcher</A> program
+on each node of the cluster
+that will perform computations.
+For security,
+it is recommended to run the Launcher program
+from a special PJ2 account,
+not from any user's account;
+this will prevent users running jobs on the cluster
+from accessing other users' accounts.
+<P>
+Specify the Launcher program's <TT>tracker</TT> parameter
+to refer to the Tracker's host name
+(the same as the Tracker's <TT>tracker</TT> parameter).
+<P>
+Specify the Launcher program's other parameters
+with the characteristics of the Launcher's node.
+<P>
+Redirect the Launcher program's
+standard output and standard error
+to a log file.
+
+<P>
+<B>Jobs.</B>
+Users can now run <A HREF="../Job.html">Job</A>s on the cluster
+by logging into their accounts
+on the node where the Tracker is running,
+and running the <A HREF="../../../../pj2.html"><TT>pj2</TT></A> program.
+<P>
+Specify the <TT>pj2</TT> program's <TT>jar</TT> parameter
+to refer to a Java archive (JAR) file
+containing all the classes in the user's program.
+(The JAR file need not
+and should not include the PJ2 Library classes.)
+<P>
+If necessary,
+specify the <TT>pj2</TT> program's <TT>tracker</TT> parameter
+to refer to the Tracker's host name.
+If necessary,
+specify the <TT>pj2</TT> program's <TT>listen</TT> parameter
+to be the Internet-accessible host name or IP address
+of the user's node;
+every Launcher program
+must be able to connect to this host name.
+(The <TT>tracker</TT> and <TT>listen</TT> parameters
+don't usually need to be specified;
+the defaults usually work.)
+<P>
+When the Job launches a <A HREF="../Task.html">Task</A>,
+the task runs on one of the cluster nodes,
+in a Backend process spawned by that node's Launcher;
+the Backend process runs in the same account as the Launcher.
+
+<P>
+<B>Tasks.</B>
+Users can also run multicore <A HREF="../Task.html">Task</A>s on the cluster
+by logging into their accounts
+on the node where the Tracker is running,
+and running the <A HREF="../../../../pj2.html"><TT>pj2</TT></A> program.
+In this case the <TT>pj2</TT> program
+automatically wraps the task inside a job
+and runs the job as described above.
+If the <TT>pj2</TT> program's <TT>threads</TT> parameter is specified,
+the task will require the given number of cores,
+otherwise the task will require all the cores on the node.
+The task runs on one of the cluster nodes,
+in a Backend process spawned by that node's Launcher;
+the Backend process runs in the same account as the Launcher.
+
+<P>
+<B>Firewalls.</B>
+By default,
+the Job listens for TCP socket connections from Backends
+on an unused port;
+the Tracker listens for TCP socket connections
+from Jobs and Launchers
+on port 20618;
+and the Tracker listens for TCP socket connections
+from web browsers
+on port 8080.
+(The defaults can be overridden.)
+If a firewall is active
+on the node where a Job or a Tracker is running,
+the firewall must be configured
+to allow incoming connections to the appropriate port(s).
+
+<P>
+<H2>PJ2 on a Multicore Parallel Computer</H2>
+
+<P>
+A multicore parallel computer
+consists of a single node with multiple cores.
+To run a <A HREF="../Task.html">Task</A>
+on a multicore parallel computer,
+the Tracker is not required.
+If no Tracker is running,
+the <A HREF="../../../../pj2.html"><TT>pj2</TT></A> program
+executes the task in the <TT>pj2</TT> program's process.
+
+<P>
+Although not required,
+a Tracker might still be useful
+on a multicore parallel computer.
+A typical situation is when many users
+want to run tasks on the computer.
+In this case,
+a Tracker can queue users' tasks
+and schedule them to execute
+when computational resources,
+such as CPU cores and GPU accelerators,
+are available.
+
+<P>
+To set up PJ2 on a multicore parallel computer,
+to be shared by many users,
+run the <A HREF="Tracker.html">Tracker</A> program
+as follows.
+
+<P>
+<B>Tracker.</B>
+Run the <A HREF="Tracker.html">Tracker</A> program
+on the node.
+For security,
+it is recommended to run the Tracker program
+from a special PJ2 account,
+not from any user's account.
+<P>
+It is recommended not to specify
+the Tracker program's <TT>tracker</TT> parameter.
+The Tracker will then listen for connections on <TT>localhost</TT>.
+This way, the Tracker can only be accessed
+by logging into the node
+where the Tracker is running.
+<P>
+Specify the Tracker program's <TT>web</TT> parameter
+to be the Internet-accessible host name or IP address
+for the Tracker's web interface.
+<P>
+Specify the Tracker program's <TT>name</TT> parameter
+to be the name of the PJ2 system.
+<P>
+Specify the Tracker program's <TT>node</TT> parameter
+to be the name of the node,
+the number of CPU cores on the node,
+and the number of GPU accelerators on the node.
+(The <TT>node</TT> parameter is required
+because there are no Launchers.)
+<P>
+Redirect the Tracker program's
+standard output and standard error
+to a log file.
+
+<P>
+<B>Tasks.</B>
+Users can now run multicore <A HREF="../Task.html">Task</A>s on the node
+by logging into their accounts on the node
+and running the <A HREF="../../../../pj2.html"><TT>pj2</TT></A> program.
+If the <TT>pj2</TT> program's <TT>threads</TT> parameter is specified,
+the task will require the given number of cores,
+otherwise the task will require all the cores on the node.
+By default, the <TT>pj2</TT> program
+contacts the Tracker on <TT>localhost</TT>
+to schedule the task.
+When resources are available,
+the Tracker notifies the <TT>pj2</TT> program,
+which then executes the task in the <TT>pj2</TT> program's process.
+(There are no Launchers,
+so the task does not run in a separate Backend process.)
+
+<P>
+<B>Jobs.</B>
+Users can also run <A HREF="../Job.html">Job</A>s on the node
+by logging into their accounts on the node
+and running the <A HREF="../../../../pj2.html"><TT>pj2</TT></A> program.
+The system acts as a "cluster" with one node.
+The job's tasks are executed in the job's process.
+
+<P>
+<H2>PJ2 Protocol</H2>
+
+<P>
+The Job, Tracker, Launcher, and Backend objects
+communicate among each other as follows:
+
+<P><CENTER><IMG SRC="doc-files/fig02.png"></CENTER>
+
+<P>
+The messages sent among
+the Job, Tracker, Launcher, and Backend objects
+are as follows:
+
+<P><CENTER><IMG SRC="doc-files/fig03.png"></CENTER>
+
+<OL TYPE=1>
+<P><LI> <!-- 1 -->
+When the Launcher starts on a certain node,
+the Launcher connects to the Tracker's host and port.
+The Launcher tells the Tracker that the Launcher started,
+specifying the characteristics of the node
+(name, number of CPU cores, number of GPU accelerators).
+<P><LI> <!-- 2 -->
+The Tracker exchanges heartbeat messages with each Launcher periodically.
+If a heartbeat message does not arrive within the expected time,
+that tells the Tracker or Launcher that its counterpart has failed.
+If the Tracker detects that a Launcher failed,
+the Tracker no longer schedules tasks on that node.
+If a Launcher detects that the Tracker failed,
+the Launcher terminates.
+<P><LI> <!-- 3 -->
+The Job connects to the Tracker's host and port.
+The Job asks the Tracker to start a new job,
+specifying the Job's host and port.
+The Tracker records the job.
+<P><LI> <!-- 4 -->
+The Tracker tells the Job that the job was launched,
+specifying the job ID.
+<P><LI> <!-- 5 -->
+When the Tracker decides the job can start
+(immediately after Step 4, or later),
+the Tracker tells the Job that the job was started.
+<P><LI> <!-- 6 -->
+Once the job has launched,
+the Job exchanges heartbeat messages with the Tracker periodically.
+If a heartbeat message does not arrive within the expected time,
+that tells the Job or Tracker that its counterpart has failed.
+If the Job detects that the Tracker failed,
+the Job itself fails.
+If the Tracker detects that the Job failed,
+the Tracker removes the job and all its tasks.
+<P><LI> <!-- 7 -->
+The Job asks the Tracker to launch a new task group,
+consisting of one or more tasks.
+For each task in the group,
+the Job specifies the task ID and the node requirements
+(number of CPU cores, number of GPU accelerators, etc.).
+The Tracker records the task group.
+The Job can launch multiple task groups.
+<P><LI> <!-- 8 -->
+When an appropriate node is available for a task,
+the Tracker tells the Job that the task is launching.
+The Job starts a timeout
+to detect if the task fails to launch.
+<P>
+Alternatively, if there is a problem
+(e.g., there are no nodes with the required resources),
+the Tracker tells the Job that the task failed
+and removes the task.
+<P><LI> <!-- 9 -->
+The Tracker tells the chosen node's Launcher
+to launch a new Backend process,
+specifying the Job's host and port and the task ID.
+<P><LI> <!-- 10 -->
+The Launcher attempts to create a new Backend process,
+passing it the Job's host and port and the task ID.
+<P><LI> <!-- 11 -->
+If the Backend process failed to be created,
+the Launcher tells the Tracker that the launch failed,
+and the Launcher terminates (see Step 23).
+The Tracker tells the Job that the task failed
+and removes the task.
+<P><LI> <!-- 12 -->
+If the Backend process was successfully created,
+the Backend connects to the Job's host and port.
+The Backend tells the Job that the task was launched,
+specifying the task ID.
+<P><LI> <!-- 13 -->
+The Job tells the Backend to start the task,
+specifying the task parameters
+(command line arguments, input tuples, etc.).
+The Backend starts running the task.
+<P><LI> <!-- 14 -->
+While the task is running,
+the Job exchanges heartbeat messages with the Backend periodically.
+If a heartbeat message does not arrive within the expected time,
+that tells the Job or Backend that its counterpart has failed.
+If the Job detects that the Backend failed,
+the corresponding task fails.
+If the Backend detects that the Job failed,
+the Backend terminates.
+<P><LI> <!-- 15 -->
+If the task prints on the Backend's
+standard output or standard error,
+the printed characters are intercepted
+and sent to the Job,
+which prints the characters
+on the Job's own standard output or standard error.
+<P><LI> <!-- 16 -->
+If the task needs to take a tuple out of tuple space while executing,
+the Backend informs the Job,
+specifying the template with which to find a matching tuple.
+<P><LI> <!-- 17 -->
+When the Job finds a tuple that matches the template,
+the Job removes the tuple from tuple space
+and sends the tuple to the Backend.
+<P><LI> <!-- 18 -->
+If the task writes a tuple into tuple space while executing,
+the Backend informs the Job,
+specifying the tuple to be written.
+The Job writes the tuple into tuple space.
+<P><LI> <!-- 19 -->
+When the task finishes running successfully,
+the Backend tells the Job that the task finished,
+specifying the task's results.
+<P>
+Alternatively, if the task fails
+(i.e., throws an exception),
+the Backend tells the Job that the task failed,
+specifying the exception.
+<P>
+In either case, the Backend process then terminates.
+<P><LI> <!-- 20 -->
+When the task is done,
+the Job tells the Tracker that the task is done.
+The Tracker removes the task.
+<P><LI> <!-- 21 -->
+When all tasks of the Job are done,
+the Job tells the Tracker that the job is done.
+The Tracker removes the job.
+<P><LI> <!-- 22 -->
+If the job fails,
+including if the user kills the job manually,
+the Job tells any remaining Backends to stop their tasks.
+The Backends terminate.
+The Job also tells the Tracker to stop the job,
+specifying an error message that goes in the Tracker's log.
+The Tracker removes the job and all its tasks.
+<P><LI> <!-- 23 -->
+If the Launcher decides to stop,
+it informs the Tracker.
+The Tracker no longer schedules tasks on that node.
+</OL>
+
+</BODY>
+</HTML>

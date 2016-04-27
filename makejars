@@ -1,0 +1,45 @@
+#!/bin/bash
+
+if [[ "$1" == "" ]]
+	then
+	echo "Usage: makejars <YYYYMMDD>"
+	exit 1
+fi
+
+EXEJAR=pj2_${1}.jar
+SRCJAR=pj2src_${1}.jar
+CSRCJAR=pj2csrc_${1}.jar
+
+cd ..
+jar cf pj2/$SRCJAR \
+	pj2/.bashrc \
+	pj2/ccompile \
+	pj2/cinstall \
+	pj2/compile \
+	pj2/doc \
+	pj2/jcompile \
+	pj2/lib \
+	pj2/makejars \
+	pj2/makerelease \
+	pj2/packages.txt \
+	pj2/runjavadoc \
+
+
+cd pj2/lib
+jar cf ../$EXEJAR \
+	`find . -name '*.class'` \
+	*.png \
+
+
+cd ..
+jar cf $CSRCJAR \
+	ccompile \
+	lib/ccompile \
+	lib/edu_rit_gpu_Cuda.c \
+	lib/edu_rit_gpu_Cuda.h \
+	lib/edu/rit/gpu/example/ccompile \
+	lib/edu/rit/gpu/example/*.cu \
+	lib/edu/rit/gpu/test/ccompile \
+	lib/edu/rit/gpu/test/*.cu \
+
+
